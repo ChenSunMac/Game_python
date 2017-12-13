@@ -9,6 +9,18 @@ Created on Tue Dec 12 15:36:49 2017
 import pygame, sys, os
 from pygame.locals import *
 
+
+"""
+'#': 墙壁
+'-': 可行空间
+'$': 箱子
+'@': 人
+'.': 目标点
+'+': 人和目标点重合
+'*': 箱子和目标点重合
+"""
+
+
 # 移动箱子在地图上的位置，level为地图列表，i为箱子的位置
 def move_box(level, i):
     # 如果位置原来为空间或人，则标为箱子，否则标为箱子和目标点重合效果
