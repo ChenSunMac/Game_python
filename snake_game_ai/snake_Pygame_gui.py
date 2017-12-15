@@ -2,20 +2,55 @@
 """
 Created on Wed Dec 13 11:03:16 2017
 
+Dependencies: 
+    Python 3.6
+    pygame module            
+
+Intro:
+    This is a snake game based on PyGame Module
+
+OOD:
+    @Class: Snake
+        - Have a attribute BodyLength
+            body constructed by list (append/pop would be easy for add/delete)
+        - Have a Direction to move
+        - move can be done by adding & deleteing node
+        - change direction when detecting pygame.KEY... modules
+        
+    @Class: Food
+        - Can Set at random place
+        - Can be Removed 
+        
+
+Main Game Loop: (After Initialize)
+    - Check if pygame.QUIT/KEYDOWN
+        - Handle Quit
+        - Handle Space Key (return to Main()) when the Snake STATE is DEAD
+        - Handle Direction Key by changing Snake direction
+    - IF DEAD:
+        - Show GAMEOVER TEXT
+    - IF NOT DEAD:
+        - move the snake and draw every element of the snake body
+        - IF the snake head is COINCIDE with the food
+            - REMOVE Food
+            - ADD node to Snake
+            - SET the new Food
+        - Update Score
 @author: Chens
+https://github.com/ChenSunMac
 """
 
 import pygame
 import sys
 import random
 
-# 全局定义
+# Glabal Definitions
 SCREEN_X = 600
 SCREEN_Y = 600
 
 
-# 蛇类
-# 点以25为单位
+# Snake Class
+# each element is 25*25 
 class Snake(object):
     # 初始化各种需要的属性 [开始时默认向右/身体块x5]
     def __init__(self):
@@ -56,15 +91,15 @@ class Snake(object):
             return True
         return False
         
-    # 移动！
+    # 移动
     def move(self):
         self.addnode()
         self.delnode()
         
     # 改变方向 但是左右、上下不能被逆向改变
     def changedirection(self,curkey):
-        LR = [pygame.K_LEFT,pygame.K_RIGHT]
-        UD = [pygame.K_UP,pygame.K_DOWN]
+        LR = [pygame.K_LEFT, pygame.K_RIGHT]
+        UD = [pygame.K_UP, pygame.K_DOWN]
         if curkey in LR+UD:
             if (curkey in LR) and (self.dirction in LR):
                 return
@@ -73,7 +108,7 @@ class Snake(object):
             self.dirction = curkey
        
        
-# 食物类
+# Food Class
 # 方法： 放置/移除
 # 点以25为单位
 class Food:
@@ -94,9 +129,9 @@ class Food:
             print(self.rect)
             
 
-def show_text(screen, pos, text, color, font_bold = False, font_size = 60, font_italic = False):   
+def show_text(screen, pos, text, color, font_bold = False, font_size = 50, font_italic = False):   
     #获取系统字体，并设置文字大小  
-    cur_font = pygame.font.SysFont("宋体", font_size)  
+    cur_font = pygame.font.SysFont("comicsansms", font_size)  
     #设置是否加粗属性  
     cur_font.set_bold(font_bold)  
     #设置是否斜体属性  
@@ -132,7 +167,13 @@ def main():
                 
             
         screen.fill((255,255,255))
-        
+
+        # 显示死亡文字
+        isdead = snake.isdead()
+        if isdead:
+            show_text(screen,(100,200),'YOU DEAD!',(227,29,18),False,100)
+            show_text(screen,(150,260),'press space to try again...',(0,0,22),False,30)
+            
         # 画蛇身 / 每一步+1分
         if not isdead:
             scores+=1
@@ -140,12 +181,7 @@ def main():
         for rect in snake.body:
             pygame.draw.rect(screen,(20,220,39),rect,0)
             
-        # 显示死亡文字
-        isdead = snake.isdead()
-        if isdead:
-            show_text(screen,(100,200),'YOU DEAD!',(227,29,18),False,100)
-            show_text(screen,(150,260),'press space to try again...',(0,0,22),False,30)
-            
+
         # 食物处理 / 吃到+50分
         # 当食物rect与蛇头重合,吃掉 -> Snake增加一个Node
         if food.rect == snake.body[0]:

@@ -1,3 +1,13 @@
+"""
+
+
+
+
+@author: Chens
+https://github.com/ChenSunMac
+"""
+
+
 import curses
 from curses import KEY_RIGHT, KEY_LEFT, KEY_UP, KEY_DOWN
 from random import randint
