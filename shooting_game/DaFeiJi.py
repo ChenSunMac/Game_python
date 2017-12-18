@@ -3,6 +3,7 @@
 Created on Fri Dec 15 12:34:14 2017
 
 @author: Chens
+https://github.com/ChenSunMac
 """
 
 
@@ -11,10 +12,12 @@ Created on Fri Dec 15 12:34:14 2017
 import sys,pygame,random
 from pygame.locals import *
 
+# Define the window size
 windowWidth=420
 windowHeight=600
 cellSize=20
 
+# Create shots and enemys as list
 shots=[]#飞行的子弹
 enemys=[]#飞行的敌机
 
@@ -30,14 +33,16 @@ def main():
     global screen,guard
     screen=pygame.display.set_mode((windowWidth,windowHeight))
     pygame.display.set_caption("aircraft")
+    
     gamestart()
     FPS=pygame.time.Clock()
+    # Use two squares to draw a gural plane(品字型飞机)
     guard=[{'x':windowWidth/2-cellSize/2,'y':windowHeight-cellSize},#中0
            {'x':windowWidth/2-cellSize/2,'y':windowHeight-2*cellSize},#上1
            {'x': windowWidth / 2-cellSize*3/2, 'y': windowHeight - cellSize},#左2
            {'x': windowWidth / 2+cellSize/2, 'y': windowHeight - cellSize}]#右3
 
-
+# MAIN LOOP
     while True:
         screen.fill((0, 0, 0))
         FPS.tick(5)
@@ -138,7 +143,7 @@ def gamestart():
     screen.blit(textSurfaceObj1,textRectObj1)
 
     fontObj2 =pygame.font.Font('freesansbold.ttf', 30)
-    textSurfaceObj2 = fontObj2.render('Developer : JIE', True,(255, 255, 255))
+    textSurfaceObj2 = fontObj2.render('Developer : Chen S', True,(255, 255, 255))
     textRectObj2 = textSurfaceObj2.get_rect()
     textRectObj2.center = (windowWidth/2, windowHeight*2/3)
     screen.blit(textSurfaceObj2,textRectObj2)
