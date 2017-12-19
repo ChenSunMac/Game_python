@@ -1,8 +1,16 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Dec 18 17:11:51 2017
+Class Piece:
+    The shapes of tetrimonos
+
+    each of them was a tuple of tuples containing the rotations
+    
+    PIECES is a dict containing all the shapes where number as a key.
+
+    {1: I, 2: J, 3: L, 4: O, 5: S, 6:T, 7:Z}
 
 @author: Chens
+https://github.com/ChenSunMac
 """
 
 class Piece:

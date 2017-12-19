@@ -1,3 +1,12 @@
+"""
+Tetris Game With Background Music (Python 3):
+    Main event in tetris class()
+
+
+@author: Chens
+https://github.com/ChenSunMac
+"""
+
 import pygame
 import random
 import sys
@@ -5,9 +14,16 @@ from pygame.mixer import *
 from Piece import *
 from pygame.locals import *
 
+
 # pretty UI
 class P_UI:
-    """docstring for P_UI"""
+    """docstring for P_UI
+    Attributes:
+        background color
+        block color
+        width and height
+        and paths...
+    """
     # Tetris_Background
     black = (10, 10, 10)
     black_2 = (26, 26, 26)
@@ -49,8 +65,17 @@ class P_UI:
     delete4_path = "./materials/sound/super_weapon.wav"
     delete_path = "./materials/sound/pop.flac"
 
-class Mino:
 
+class Mino:
+    """
+    The Tetris mino:
+        @attribute: piece_name
+        @attribute: color
+        @attribute: rotation
+        @attribute: array2d
+        
+        @method: rotate()
+    """
     def __init__(self, piece_name=0):
         if piece_name:
             self.piece_name = piece_name
@@ -68,6 +93,7 @@ class Mino:
         self.rotation = (self.rotation + 1) % 4 if clockwise else \
                         (self.rotation - 1) % 4
         self.array2d = Piece.PIECES[self.piece_name][self.rotation]
+
 
 class Board:
     COLLIDE_EVENT = {'no_error': 0, 'right_wall': 1, 'left_wall': 2,
@@ -358,7 +384,7 @@ class Tetris:
         self.clock = pygame.time.Clock()
         self.board = Board(self.screen)
         pygame.init()
-        pygame.display.set_caption('Tetris_by_Lim')
+        pygame.display.set_caption('Tetris_by_ChenS')
         pygame.time.set_timer(Tetris.DROP_EVENT, 300)
         self.main_sound('back.wav')
         self.start()       
